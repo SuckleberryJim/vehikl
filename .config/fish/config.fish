@@ -27,7 +27,12 @@ alias '...'='cd ../../'
 alias '....'='cd ../../../'
 
 alias d=docker
-alias dcps='docker compose'
+alias db='docker build'
+alias dr='docker run'
+alias dc='docker compose'
+alias dcb='docker compose build'
+alias dcu='docker compose up'
+alias dcd='docker compose down'
 
 bind escape forward-char
 bind ctrl-o 'nvim .'
