@@ -42,13 +42,14 @@ end
 
 # choose and set a fish prompt | pretty good defaults to choose from
 # fish_config prompt list
-fish_config prompt choose minimalist
+fish_config prompt choose disco # minimalist
 
 # function sync
 #   git add .
 #   git commit -m
 
 function u
+    brew analytics off
     brew update
     brew upgrade
     brew cleanup
