@@ -2,6 +2,8 @@ if status is-interactive
     # Commands to run in interactive sessions can go here
 end
 
+# we should break up aliases, functions, vars, etc. into various files
+
 alias l='eza -lAh'
 alias ls='eza -lh'
 alias py=python3
