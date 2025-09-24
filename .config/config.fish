@@ -2,6 +2,11 @@ if status is-interactive
     # Commands to run in interactive sessions can go here
 end
 
+# we should break up aliases, functions, vars, etc. into various files
+
+# add brew path
+fish_add_path /home/linuxbrew/.linuxbrew/bin/fish
+
 alias l='eza -lAh'
 alias ls='eza -lh'
 alias py=python3
@@ -26,8 +31,13 @@ alias '..'='cd ../'
 alias '...'='cd ../../'
 alias '....'='cd ../../../'
 
-alias d=docker
-alias dcps='docker compose'
+lias d=docker
+alias db='docker build'
+alias dr='docker run'
+alias dc='docker compose'
+alias dcb='docker compose build'
+alias dcu='docker compose up'
+alias dcd='docker compose down'
 
 bind escape forward-char
 bind ctrl-o 'nvim .'
@@ -49,6 +59,7 @@ fish_config prompt choose minimalist
 #   git commit -m
 
 function u
+    # brew analytics off
     brew update
     brew upgrade
     brew cleanup
@@ -64,7 +75,7 @@ function sync
 
     git add .
     git commit -m $argv[1]
-    git push -u origin main
+    git push -uv origin main
     git status
 end
 
@@ -77,3 +88,4 @@ fish_add_path /Users/atriox/.codeium/windsurf/bin
 
 alias ur='uv run'
 alias uvenv='source .venv/bin/activate.fish'
+alias uvi='uv init . --bare'
