@@ -15,10 +15,11 @@ load_dotenv()
 
 
 def model_selector(provider: str = "openai"):
-    models = ["openai/gpt-5-mini", "google/gemini-2.5-flash", "x-ai/grok-code-fast-1"]
+    # models = ["openai/gpt-5-mini", "google/gemini-2.5-flash", "x-ai/grok-code-fast-1"]
     base = os.getenv("OPENAI_URL_BASE")
     key = os.getenv("OPENAI_API_KEY")
     global llm
+    llm = None
     match provider:
         case "openai":
             llm = "openai/gpt-5-mini"
@@ -50,6 +51,14 @@ llm = llm.split("/")[-1]
 
 fp = Path(f"./responses/{llm}.md")
 
+if fp.exists():
+    for i in range(1, 100):
+        n = Path(f"./responses/{llm}-c{i}.md")
+        if not n.exists():
+            fp = n
+        else:
+            continue
+
 template = ChatPromptTemplate(
     [
         (
@@ -74,22 +83,22 @@ chat.append(
 
 chat.append(model.invoke(chat))
 
-# chat.append(
-#     HumanMessage(
-#         "what are the various types of model templates and integrations? can you break them down for me and show me some examples?"
-#     )
-# )
-#
-# chat.append(model.invoke(chat))
-#
-# chat.append(
-#     HumanMessage(
-#         "can you show me an example basic rag model that uses pythons pathlib to find all files in a root directory that match a specific suffix/filetype and then reads/embeds those files into an in-memory db for a rag agent? can you show me how I can ingest pdf docs, txt, md, etc. and feed those into a rag model for more releant/accurate queries?"
-#     )
-# )
-#
-# chat.append(model.invoke(chat))
-#
+chat.append(
+    HumanMessage(
+        "what are the various types of model templates and integrations? can you break them down for me and show me some examples? what is the difference between models and chatmodels? like openai() and chatopenai()? how about the various templates? can each model interop with each template or does each have a specific prompt/model that must go with its chain?"
+    )
+)
+
+chat.append(model.invoke(chat))
+
+chat.append(
+    HumanMessage(
+        "can you show me an example basic rag model that uses pythons pathlib to find all files in a root directory that match a specific suffix/filetype and then reads/embeds those files into an in-memory db for a rag agent? can you show me how I can ingest pdf docs, txt, md, etc. and feed those into a rag model for more releant/accurate queries? also, what is faiss and how does it work? can we use it to embed pdfs, md, txt files and build out a rag model?"
+    )
+)
+
+chat.append(model.invoke(chat))
+
 
 persist = True
 
