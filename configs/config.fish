@@ -31,7 +31,7 @@ alias '..'='cd ../'
 alias '...'='cd ../../'
 alias '....'='cd ../../../'
 
-lias d=docker
+alias d=docker
 alias db='docker build'
 alias dr='docker run'
 alias dc='docker compose'
